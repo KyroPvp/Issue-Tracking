@@ -43,7 +43,7 @@ async function run({github, context, core}) {
   ]);
   // Reconcile labels on existing PRs as well as newly opened PRs.
   for (const pull of pulls) {
-    await run({github, context: {...context, eventName: 'pull_request_target', payload: {pull_request: pull}}, core});
+    await run({github, context: {repo, eventName: 'pull_request_target', payload: {pull_request: pull}}, core});
   }
   const body = reportBody(issues, pulls, runs.data.workflow_runs);
   // Match only our bot's marker; never overwrite a human issue.

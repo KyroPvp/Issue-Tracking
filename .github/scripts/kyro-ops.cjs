@@ -41,6 +41,10 @@ async function run({github, context, core}) {
     github.paginate(github.rest.pulls.list, {...repo, state: 'open', per_page: 100}),
     github.rest.actions.listWorkflowRunsForRepo({...repo, per_page: 30}),
   ]);
+  // Reconcile labels on existing PRs as well as newly opened PRs.
+  for (const pull of pulls) {
+    await run({github, context: {...context, eventName: 'pull_request_target', payload: {pull_request: pull}}, core});
+  }
   const body = reportBody(issues, pulls, runs.data.workflow_runs);
   // Match only our bot's marker; never overwrite a human issue.
   const previous = issues.find(x => x.user?.login === 'github-actions[bot]' && x.body?.startsWith(REPORT));

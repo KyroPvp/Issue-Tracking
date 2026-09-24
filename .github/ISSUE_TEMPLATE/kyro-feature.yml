@@ -1,0 +1,23 @@
+name: Kyro feature request
+description: Propose a scoped improvement
+title: "[Feature] "
+labels: ["type:feature", "needs-triage"]
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Problem and desired outcome
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Describe how we will know the work is complete.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and affected plugins
+      description: Link related issues and note packet, database, or API compatibility changes.
